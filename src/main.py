@@ -33,11 +33,21 @@ def sitemap():
 @app.route('/user', methods=['GET'])
 def handle_hello():
 
-    response_body = {
-        "msg": "Hello, this is your GET /user response "
-    }
+    all_users = User.query.all()
+    #esto almacena en una lista list() y realizando un map(),
+    #donde un map ejecucta una instrauccion por cada registro de usuario en nuestra base de datos
+    #y LLAMBDA es lo mismo que una funcion()=>() que ejecuta por cada registro de la base de datos (X)
+    # y ejecutara su funcion serlialize() para devolver los datos que quiero
 
-    return jsonify(response_body), 200
+    #retorno todos los usarios
+    return jsonify(all_users), 200
+
+@app.route('/favorite', methods=['GET'])
+def allFavorite():
+    resultados = {"Mensaje": "Aca van los favoritos"}
+    return jsonify(resultados)
+
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
