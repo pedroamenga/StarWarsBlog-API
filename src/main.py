@@ -31,21 +31,24 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/user', methods=['GET'])
-def handle_hello():
-
+def all_users():
+    #la variable all_users estoy consultando a la base de datos por
+    #todos los registros de al tabla USERS
     all_users = User.query.all()
     #esto almacena en una lista list() y realizando un map(),
     #donde un map ejecucta una instrauccion por cada registro de usuario en nuestra base de datos
     #y LLAMBDA es lo mismo que una funcion()=>() que ejecuta por cada registro de la base de datos (X)
     # y ejecutara su funcion serlialize() para devolver los datos que quiero
-
+    all_users = List(map(lambda x: x.serialize(), all_users))
     #retorno todos los usarios
     return jsonify(all_users), 200
 
 @app.route('/favorite', methods=['GET'])
 def allFavorite():
-    resultados = {"Mensaje": "Aca van los favoritos"}
-    return jsonify(resultados)
+    all_favoritos = favorite.query.all()
+    all_favoritos = List(map(lambda x: x.serialize(), all_favoritos))
+
+    return jsonify(all_favoritos)
 
 
 
